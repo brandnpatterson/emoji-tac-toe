@@ -1,12 +1,12 @@
 {
-  "name": "crawford-notch",
+  "name": "tictactoe-vs-ai",
   "version": "1.0.2",
   "scripts": {
     "deploy": "webpack -p && surge",
     "start": "gulp clean && gulp"
   },
   "author": "Brandon Patterson",
-  "description": "crawford-notch",
+  "description": "tictactoe-vs-ai",
   "main": "public/bundle.js",
   "url": "",
   "homepage": "",
@@ -39,9 +39,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brandnpatterson/crawford-notch.git"
+    "url": "git+https://github.com/brandnpatterson/tictactoe-vs-ai.git"
   },
   "bugs": {
-    "url": "https://github.com/brandnpatterson/crawford-notch/issues"
+    "url": "https://github.com/brandnpatterson/tictactoe-vs-ai/issues"
   }
 }
