@@ -1,5 +1,5 @@
 /**
- * Tic Tac Toe Game
+ * Tic Tac Toe vs AI
 **/
 
 var playerOneSymbol = 'X';
