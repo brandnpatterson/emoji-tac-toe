@@ -20,12 +20,10 @@ const game = {
   cells: document.querySelectorAll('.cell'),
   players: [
     {
-      name: 'Player One',
       value: 'X',
       selection: []
     },
     {
-      name: 'Player Two',
       value: 'O',
       selection: []
     }
@@ -55,7 +53,8 @@ forEach(game.cells, (index, value) => {
       selection.push(index);
       selection.sort((a, b) => a - b);
       if (selection.compare([0, 3, 6]) === true) {
-        alert(`${game.turn.name} Wins!`);
+        alert(`${game.turn.value} Wins!`);
+        game.start();
       };
       game.turn = game.turn === player1 ? player2 : player1;
     }
