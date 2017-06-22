@@ -5,22 +5,26 @@
 const playerOne = 'X';
 const playerTwo = 'O';
 const cellNumbers = 9;
-const state = {
-  currentTurn: playerOne,
-  board: []
-};
-
-for (let i = 0; i < cellNumbers; i++) {
-  state.board.push({
-    'value': ''
-  });
-}
 
 const forEach = (array, callback, scope) => {
   for (let i = 0; i < array.length; i++) {
     callback.call(scope, i, array[i]);
   }
 };
+
+const state = {
+  emptyBoard () {
+    this.board = [];
+    for (let i = 0; i < cellNumbers; i++) {
+      this.board.push({
+        'value': ''
+      });
+    }
+  },
+  currentTurn: playerOne,
+  board: []
+};
+state.emptyBoard();
 
 const cells = document.querySelectorAll('.cell');
 
@@ -32,11 +36,18 @@ forEach(cells, (index, value) => {
     if (e.target.dataset['clicked'] === 'false') {
       e.target.innerHTML = state.board[index].value;
       state.currentTurn = state.currentTurn === playerOne ? playerTwo : playerOne;
-      console.log(state.board);
     }
     e.target.dataset['clicked'] = 'true';
   });
 });
+
+const reset = () => {
+  console.log('reset app');
+  state.emptyBoard();
+  console.log(state.board);
+}
+
+document.querySelector('.reset').addEventListener('click', reset);
 
 // 1. Reset game
 // 2. Check for winner and report to view
