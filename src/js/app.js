@@ -1,5 +1,5 @@
 /**
- * Tic Tac Toe vs AI
+ * Tic Tac Toe
 **/
 
 const playerOne = 'X';
