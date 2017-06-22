@@ -5,7 +5,6 @@
 const playerOne = 'X';
 const playerTwo = 'O';
 const cellNumbers = 9;
-
 const forEach = (array, callback, scope) => {
   for (let i = 0; i < array.length; i++) {
     callback.call(scope, i, array[i]);
@@ -16,12 +15,10 @@ const state = {
   emptyBoard () {
     this.board = [];
     for (let i = 0; i < cellNumbers; i++) {
-      this.board.push({
-        'value': ''
-      });
+      this.board.push('');
     }
   },
-  currentTurn: playerOne,
+  currentTurnValue: playerOne,
   board: []
 };
 state.emptyBoard();
@@ -30,27 +27,47 @@ const cells = document.querySelectorAll('.cell');
 
 forEach(cells, (index, value) => {
   value.addEventListener('click', (e) => {
-    state.board.splice(index, 1, {
-      'value': state.currentTurn
-    });
     if (e.target.dataset['clicked'] === 'false') {
-      e.target.innerHTML = state.board[index].value;
-      state.currentTurn = state.currentTurn === playerOne ? playerTwo : playerOne;
+      e.target.dataset['clicked'] = 'true';
+      state.board.splice(index, 1, state.currentTurnValue);
+      e.target.innerHTML = state.board[index];
+      state.currentTurnValue = state.currentTurnValue === playerOne ? playerTwo : playerOne;
     }
-    e.target.dataset['clicked'] = 'true';
   });
 });
 
 const reset = () => {
-  console.log('reset app');
   state.emptyBoard();
-  console.log(state.board);
+  forEach(cells, (index, value) => {
+    value.innerHTML = state.board[index];
+    value.dataset['clicked'] = 'false';
+  });
 }
 
 document.querySelector('.reset').addEventListener('click', reset);
 
 // 1. Reset game
 // 2. Check for winner and report to view
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function checkForWinner () {
 //   const winningCombos = [
