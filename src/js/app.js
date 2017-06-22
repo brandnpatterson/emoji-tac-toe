@@ -18,7 +18,7 @@ const game = {
   ],
   start () {
     this.board = [];
-    this.turn = this.players[0].value;
+    this.turn = this.players[0];
     forEach(game.cells, (index, value) => {
       this.board.push('');
       value.innerHTML = game.board[index];
@@ -29,21 +29,20 @@ const game = {
 
 forEach(game.cells, (index, value) => {
   value.addEventListener('click', (e) => {
+    const player1 = game.players[0];
+    const player2 = game.players[1];
     const data = e.target.dataset;
 
     if (data['clicked'] === 'false') {
       data['clicked'] = 'true';
-      game.board.splice(index, 1, game.turn);
+      game.board.splice(index, 1, game.turn.value);
       e.target.innerHTML = game.board[index];
-      game.turn = game.turn === game.players[0].value ? game.players[1].value : game.players[0].value;
-      console.log(game.turn);
+      game.turn = game.turn === player1 ? player2 : player1;
+      game.turn.selection.push(index);
+      console.log(game.turn.selection);
     }
   });
 });
 game.start();
-
-const results = () => {
-}
-results();
 
 document.querySelector('.reset').addEventListener('click', () => game.start());
