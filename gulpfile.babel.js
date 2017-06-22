@@ -1,8 +1,5 @@
 import gulp       from 'gulp';
 import del        from 'del';
-import eslint     from 'gulp-eslint';
-import imagemin   from 'gulp-imagemin';
-import prefix     from 'gulp-autoprefixer';
 import htmlmin    from 'gulp-htmlmin';
 import sync       from 'browser-sync';
 import webpack    from 'webpack-stream';
@@ -17,13 +14,6 @@ gulp.task('html', () => {
   return gulp.src('src/index.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('./'))
-});
-
-gulp.task('lint', () => {
-  return gulp.src(['*/**/*.js', '!node_modules/*', '!public/includes/*'])
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
 });
 
 gulp.task('server', ['scripts'], () => {
