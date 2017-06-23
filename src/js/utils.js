@@ -1,8 +1,6 @@
 /**
  * General Utils
 **/
-// $.inArray(item, array);
-// array.indexOf(item);
 const utils = module.exports = {
   forEach (array, callback, scope) {
     for (let i = 0; i < array.length; i++) {
