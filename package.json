@@ -12,6 +12,7 @@
   "homepage": "",
   "license": "MIT",
   "dependencies": {
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
