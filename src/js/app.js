@@ -1,7 +1,7 @@
 /**
  * Tic Tac Toe Game
 **/
-// import { arraysEqual, forEach, winningCombos } from './utils';
+
 import { forEach, winningCombos } from './utils';
 
 const game = {
