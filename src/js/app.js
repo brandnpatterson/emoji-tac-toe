@@ -36,11 +36,9 @@ game.newGame();
 game.DOMboard.addEventListener('click', (e) => {
   const { board } = game;
   const data = e.target.dataset;
-
   const switchTurn = () => {
     game.turn = game.turn === players[1] ? players[0] : players[1];
   };
-
   forEach (game.DOMcells, (index, node) => {
     board.map((boardItem, boardOrder) => {
       // if element matches a node in DOMcells & has dataset clicked of false
