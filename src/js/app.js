@@ -4,27 +4,25 @@
 
 import { forEach, match, sort, winningCombos } from './utils';
 
-const game = {
-  init () {
-    this.newGame()
+const players = [
+  {
+    value: 'X',
+    DOMwins: document.querySelector('.x-wins'),
+    wins: []
   },
+  {
+    value: 'O',
+    DOMwins: document.querySelector('.o-wins'),
+    wins: []
+  }
+];
+
+const game = {
   DOMboard: document.querySelector('.board'),
   DOMcells: document.querySelectorAll('.cell'),
-  players: [
-    {
-      value: 'X',
-      DOMwins: document.querySelector('.x-wins'),
-      wins: []
-    },
-    {
-      value: 'O',
-      DOMwins: document.querySelector('.o-wins'),
-      wins: []
-    }
-  ],
   newGame () {
     this.board = [];
-    this.turn = this.players[0];
+    this.turn = players[0];
     // custom forEach used for elements selected with querySelectorAll
     forEach(this.DOMcells, (index, value) => {
       this.board.push('');
@@ -33,10 +31,10 @@ const game = {
     });
   }
 };
-game.init();
+game.newGame();
 
 game.DOMboard.addEventListener('click', (e) => {
-  const { board, players } = game;
+  const { board } = game;
   const data = e.target.dataset;
 
   const switchTurn = () => {
