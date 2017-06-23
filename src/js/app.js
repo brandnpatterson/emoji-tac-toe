@@ -3,21 +3,29 @@
 **/
 
 import _ from 'underscore';
-import { intersection_destructive, forEach, winningCombos } from './utils';
+import { forEach, winningCombos } from './utils';
 
 const game = {
   cells: document.querySelectorAll('.cell'),
+  DOMboard: document.querySelectorAll('.board'),
+  players: [
+    {
+      value: 'X',
+      selection: [],
+      DOMwins: document.querySelector('.x-wins'),
+      wins: []
+    },
+    {
+      value: 'O',
+      selection: [],
+      DOMwins: document.querySelector('.o-wins'),
+      wins: []
+    }
+  ],
   start () {
-    this.players = [
-      {
-        value: 'X',
-        selection: []
-      },
-      {
-        value: 'O',
-        selection: []
-      }
-    ];
+    this.players.map((player) => {
+      player.selection = [];
+    });
     this.board = [];
     this.turn = this.players[0];
     // custom forEach used for elements selected with querySelectorAll
@@ -32,8 +40,6 @@ const game = {
 forEach (game.cells, (index, value) => {
   value.addEventListener('click', (e) => {
     const { board, players } = game;
-    const player1 = players[0];
-    const player2 = players[1];
     const selection = game.turn.selection;
     const data = e.target.dataset;
 
@@ -41,22 +47,29 @@ forEach (game.cells, (index, value) => {
       data['clicked'] = 'true';
       board.splice(index, 1, game.turn.value);
       e.target.innerHTML = board[index];
-      game.turn = game.turn === player2 ? player1 : player2;
+      game.turn = game.turn === players[1] ? players[0] : players[1];
       selection.push(index);
       selection.sort((a, b) => a - b);
-
-      winningCombos.map((combo) => {
-        // if (isArrayInArray(selection, combo)) {
-        //   console.log('hello world');
-        // }
-        // if (contains(combo, selection) === true) {
-        //   alert(`${game.turn.value} Wins!`);
-        //   game.start();
-        // }
-        // game.turn = game.turn === player2 ? player1 : player2;
-      });
-
+    }
+    if (checkForWinner()) {
+      game.turn = game.turn === players[1] ? players[0] : players[1];
+      alert(`${game.turn.value} Wins!`);
+      game.turn.wins.push('win');
+      game.turn.DOMwins.innerHTML = `${game.turn.value} Wins: ${game.turn.wins.length}`;
+      game.start();
     }
   });
 });
+
+const checkForWinner = () => {
+  const { board } = game;
+  return winningCombos.find((combo) => {
+    if (board[combo[0]] === board[combo[1]] && board[combo[1]] === board[combo[2]]) {
+      return board[combo[0]];
+    } else {
+      return false;
+    }
+  });
+};
+
 game.start();

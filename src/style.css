@@ -39,3 +39,6 @@ body {
   cursor: pointer;
   background-color: lightgray;
 }
+.scoreboard {
+  text-align: center;
+}
