@@ -1,8 +1,26 @@
 /**
  * General Utils
 **/
-
+// $.inArray(item, array);
+// array.indexOf(item);
 const utils = module.exports = {
+  intersection_destructive (a, b)
+{
+  var result = [];
+  while( a.length > 0 && b.length > 0 )
+  {
+     if      (a[0] < b[0] ){ a.shift(); }
+     else if (a[0] > b[0] ){ b.shift(); }
+     else /* they're equal */
+     {
+       result.push(a.shift());
+       b.shift();
+     }
+  }
+
+  return result;
+},
+
   forEach (array, callback, scope) {
     for (let i = 0; i < array.length; i++) {
       callback.call(scope, i, array[i]);

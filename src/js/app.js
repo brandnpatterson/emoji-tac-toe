@@ -2,7 +2,8 @@
  * Tic Tac Toe Game
 **/
 
-import { forEach, winningCombos } from './utils';
+import _ from 'underscore';
+import { intersection_destructive, forEach, winningCombos } from './utils';
 
 const game = {
   cells: document.querySelectorAll('.cell'),
@@ -10,13 +11,11 @@ const game = {
     this.players = [
       {
         value: 'X',
-        selection: [],
-        secondArray: []
+        selection: []
       },
       {
         value: 'O',
-        selection: [],
-        secondArray: []
+        selection: []
       }
     ];
     this.board = [];
@@ -36,7 +35,6 @@ forEach (game.cells, (index, value) => {
     const player1 = players[0];
     const player2 = players[1];
     const selection = game.turn.selection;
-    const secondArray = game.turn.secondArray;
     const data = e.target.dataset;
 
     if (data['clicked'] === 'false') {
@@ -47,17 +45,17 @@ forEach (game.cells, (index, value) => {
       selection.push(index);
       selection.sort((a, b) => a - b);
 
-      // winningCombos.map((combo) => {
+      winningCombos.map((combo) => {
+        // if (isArrayInArray(selection, combo)) {
+        //   console.log('hello world');
+        // }
+        // if (contains(combo, selection) === true) {
+        //   alert(`${game.turn.value} Wins!`);
+        //   game.start();
+        // }
+        // game.turn = game.turn === player2 ? player1 : player2;
+      });
 
-      // if selection includes any combos
-      // end game declare winner
-
-      //   if (contains(combo, selection) === true) {
-      //     alert(`${game.turn.value} Wins!`);
-      //     game.start();
-      //   }
-      //   game.turn = game.turn === player2 ? player1 : player2;
-      // });
     }
   });
 });
