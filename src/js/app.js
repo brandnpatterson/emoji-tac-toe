@@ -2,35 +2,27 @@
  * Tic Tac Toe Game
 **/
 
-import { forEach, winningCombos } from './utils';
+import { forEach, match, sort, winningCombos } from './utils';
 
 const game = {
   init () {
-    this.cacheDOM(),
     this.newGame()
   },
-  cacheDOM () {
-    this.DOMcells = document.querySelectorAll('.cell');
-    this.DOMboard = document.querySelector('.board');
-  },
+  DOMboard: document.querySelector('.board'),
+  DOMcells: document.querySelectorAll('.cell'),
   players: [
     {
       value: 'X',
-      selection: [],
       DOMwins: document.querySelector('.x-wins'),
       wins: []
     },
     {
       value: 'O',
-      selection: [],
       DOMwins: document.querySelector('.o-wins'),
       wins: []
     }
   ],
   newGame () {
-    this.players.map((player) => {
-      player.selection = [];
-    });
     this.board = [];
     this.turn = this.players[0];
     // custom forEach used for elements selected with querySelectorAll
@@ -45,35 +37,30 @@ game.init();
 
 game.DOMboard.addEventListener('click', (e) => {
   const { board, players } = game;
-  const selection = game.turn.selection;
   const data = e.target.dataset;
 
+  const switchTurn = () => {
+    game.turn = game.turn === players[1] ? players[0] : players[1];
+  };
+
   forEach (game.DOMcells, (index, node) => {
-    board.map((cell, boardIndex) => {
-
-      // if node === e.target
-      // if the index of the node ===
-      const matchExactly = () => {
-        if (node === e.target && index === boardIndex && data['clicked'] === 'false') {
-          return true;
+    board.map((boardItem, boardOrder) => {
+      // if element matches a node in DOMcells & has dataset clicked of false
+      if (match(e.target, node) && match(data['clicked'], 'false')) {
+        // if the boardIndex matches the index of the DOMcells
+        if (match(boardOrder, index)) {
+          board.splice(boardOrder, 1, game.turn.value);
+          e.target.innerHTML = board[index];
+          data['clicked'] = 'true';
+          switchTurn();
         }
-      };
-
-      if (matchExactly()) {
-        data['clicked'] = 'true';
-        board.splice(boardIndex, 1, game.turn.value);
-        selection.push(index);
-        selection.sort((a, b) => a - b);
-        e.target.innerHTML = board[index];
-        game.turn = game.turn === players[1] ? players[0] : players[1];
-
-        if (checkForWinner()) {
-          game.turn = game.turn === players[1] ? players[0] : players[1];
-          alert(`${game.turn.value} Wins!`);
-          game.turn.wins.push('win');
-          game.turn.DOMwins.innerHTML = `${game.turn.value} Wins: ${game.turn.wins.length}`;
-          game.newGame();
-        }
+      }
+      if (checkForWinner()) {
+        switchTurn();
+        alert(`${game.turn.value} Wins!`);
+        game.turn.wins.push('win');
+        game.turn.DOMwins.innerHTML = `${game.turn.value} Wins: ${game.turn.wins.length}`;
+        game.newGame();
       }
     });
   });
