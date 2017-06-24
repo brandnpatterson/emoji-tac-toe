@@ -51,24 +51,32 @@ game.DOMboard.addEventListener('click', (e) => {
           switchTurn();
         }
       }
-      if (checkForWinner()) {
-        switchTurn();
-        alert(`${game.turn.value} Wins!`);
-        game.turn.wins.push('win');
-        game.turn.DOMwins.innerHTML = `${game.turn.value} Wins: ${game.turn.wins.length}`;
-        game.newGame();
-      }
     });
   });
+  if (checkForWinner()) {
+    switchTurn();
+    alert(`${game.turn.value} Wins!`);
+    game.turn.wins.push('win');
+    game.turn.DOMwins.innerHTML = `${game.turn.value} Wins: ${game.turn.wins.length}`;
+    game.newGame();
+  } else if (board.every(isNotEmptyString)) {
+    switchTurn();
+    alert(`Cat Gotcha!`);
+    game.newGame();
+  }
 });
 
 const checkForWinner = () => {
   const { board } = game;
   return winningCombos.find((combo) => {
-    if (board[combo[0]] === board[combo[1]] && board[combo[1]] === board[combo[2]]) {
+    if (match(board[combo[0]], board[combo[1]]) && match(board[combo[1]], board[combo[2]])) {
       return board[combo[0]];
     } else {
       return false;
     }
   });
 };
+
+const isNotEmptyString = (el) => {
+  return el != '';
+}
