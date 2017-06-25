@@ -1,2 +1,2 @@
-# Tic Tac Toe
-http://t-t-t.surge.sh/
+# Emoji Tac Toe
+http://emoji-tac-toe.surge.sh/
