@@ -32,8 +32,9 @@ body {
   box-sizing: border-box;
   width: 100px;
   height: 100px;
-  font-size: 5em;
+  font-size: 4em;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 .cell:hover {
