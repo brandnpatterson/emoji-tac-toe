@@ -1,12 +1,12 @@
 {
-  "name": "tic-tac-toe",
+  "name": "emoji-tac-toe",
   "version": "1.0.3",
   "scripts": {
     "deploy": "webpack -p && surge",
     "start": "gulp clean && gulp"
   },
   "author": "Brandon Patterson",
-  "description": "tic-tac-toe",
+  "description": "emoji-tac-toe",
   "main": "public/bundle.js",
   "url": "",
   "homepage": "",
@@ -26,9 +26,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brandnpatterson/tic-tac-toe.git"
+    "url": "git+https://github.com/brandnpatterson/emoji-tac-toe.git"
   },
   "bugs": {
-    "url": "https://github.com/brandnpatterson/tic-tac-toe/issues"
+    "url": "https://github.com/brandnpatterson/emoji-tac-toe/issues"
   }
 }

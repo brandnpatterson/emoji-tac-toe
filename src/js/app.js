@@ -1,17 +1,17 @@
 /**
- * Tic Tac Toe Game
+ * Emoji Tac Toe Game
 **/
 
 import { forEach, match, sort, winningCombos } from './utils';
 
 const players = [
   {
-    value: 'X',
+    value: '🦄',
     DOMwins: document.querySelector('.x-wins'),
     wins: []
   },
   {
-    value: 'O',
+    value: '💩',
     DOMwins: document.querySelector('.o-wins'),
     wins: []
   }
@@ -28,6 +28,9 @@ const game = {
       this.board.push('');
       value.innerHTML = this.board[index];
       value.dataset['clicked'] = 'false';
+    });
+    players.map((player) => {
+      player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
     });
   }
 };
@@ -57,11 +60,11 @@ game.DOMboard.addEventListener('click', (e) => {
     switchTurn();
     alert(`${game.turn.value} Wins!`);
     game.turn.wins.push('win');
-    game.turn.DOMwins.innerHTML = `${game.turn.value} Wins: ${game.turn.wins.length}`;
+    game.turn.DOMwins.innerHTML = `${game.turn.value} : ${game.turn.wins.length}`;
     game.newGame();
   } else if (board.every(isNotEmptyString)) {
     switchTurn();
-    alert(`Cat Gotcha!`);
+    alert('😸 Wins!');
     game.newGame();
   }
 });

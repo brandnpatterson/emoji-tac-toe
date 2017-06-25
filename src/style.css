@@ -1,5 +1,6 @@
 body {
   font-family: 'Helvetica';
+  width: 100vw;
 }
 .board-container {
   display: flex;
@@ -24,6 +25,7 @@ body {
 }
 .board-title h2 {
   font-size: 40px;
+  margin: 0;
 }
 .cell {
   border: 5px solid black;
@@ -39,5 +41,12 @@ body {
   background-color: lightgray;
 }
 .scoreboard {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scoreboard h3:nth-child(2) {
+  color: blue;
 }
