@@ -63,7 +63,7 @@ const render = (e) => {
       setTimeout(() =>{
         clearBoard();
         alert(`${game.turn.value} Wins!`);
-      }, 450);
+      }, 500);
       switchTurn();
       game.turn.wins.push('win');
       game.turn.DOMwins.innerHTML = `${game.turn.value} : ${game.turn.wins.length}`;
@@ -72,7 +72,7 @@ const render = (e) => {
       setTimeout(() => {
         clearBoard();
         alert('😸 Wins!');
-      }, 450);
+      }, 500);
     }
   });
   const clearBoard = () => {
