@@ -8,6 +8,9 @@ const utils = module.exports = {
       callback.call(scope, i, array[i]);
     }
   },
+  isNotEmptyString (el) {
+    return el != '';
+  },
   sort (a, b) {
     return a - b;
   },

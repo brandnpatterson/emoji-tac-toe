@@ -2,30 +2,16 @@
  * Emoji Tac Toe Game
 **/
 
-import { forEach, sort, winningCombos } from './utils';
+import { forEach, isNotEmptyString, sort, winningCombos } from './utils';
 
-const render = (e) => {
-  const { board, DOMcells, turn } = game;
-
-  players.map((player) => {
-    player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
-  });
-  
-  forEach(DOMcells, (index, node) => {
-    node.innerHTML = board[index];
-    node.dataset['clicked'] = 'false';
-  });
-
-  if (checkForWinner()) {
-    alert(`${turn.value} Wins!`);
-    turn.wins.push('win');
-    turn.DOMwins.innerHTML = `${turn.value} : ${turn.wins.length}`;
-    game.newGame();
-  } else if (board.every(isNotEmptyString)) {
-    alert('😸 Wins!');
-    game.newGame();
+const game = {
+  DOMboard: document.querySelector('.board'),
+  DOMcells: document.querySelectorAll('.cell'),
+  newGame () {
+    this.board = ['', '', '', '', '', '', '', '', ''];
+    this.turn = players[0];
   }
-}
+};
 
 const players = [
   {
@@ -40,47 +26,8 @@ const players = [
   }
 ];
 
-const game = {
-  DOMboard: document.querySelector('.board'),
-  DOMcells: document.querySelectorAll('.cell'),
-  newGame () {
-    this.board = [];
-    this.turn = players[0];
-    // custom forEach used for elements selected with querySelectorAll
-    forEach(this.DOMcells, (index, node) => {
-      this.board.push('');
-    });
-    render();
-  }
-};
-
-game.DOMboard.addEventListener('click', (e) => {
-  const { board } = game;
-  const data = e.target.dataset;
-
-  forEach (game.DOMcells, (index, node) => {
-
-    board.map((boardItem, boardOrder) => {
-      // if element matches a node in DOMcells & has dataset clicked of false
-      if (e.target === node && data['clicked'] === 'false') {
-        // if the boardIndex matches the index of the DOMcells
-        if (boardOrder === index) {
-          board.splice(boardOrder, 1, game.turn.value);
-          e.target.innerHTML = board[index];
-          data['clicked'] = 'true';
-        }
-      }
-    });
-  });
-  switchTurn();
-});
-
-const isNotEmptyString = (el) => {
-  return el != '';
-}
-
 const switchTurn = () => {
-  game.turn = game.turn === players[1] ? players[0] : players[1];
+  game.turn = game.turn === players[0] ? players[1] : players[0];
 };
 
 const checkForWinner = () => {
@@ -94,4 +41,49 @@ const checkForWinner = () => {
   });
 };
 
-game.newGame();
+const render = (e) => {
+  game.newGame();
+  const { board, DOMboard, DOMcells } = game;
+
+  DOMboard.addEventListener('click', (e) => {
+    const data = e.target.dataset;
+    forEach (game.DOMcells, (index, cell) => {
+      board.map((boardItem, boardOrder) => {
+        if (e.target === cell && data['clicked'] === 'false') {
+          if (boardOrder === index) {
+            board.splice(boardOrder, 1, game.turn.value);
+            e.target.innerHTML = board[index];
+            data['clicked'] = 'true';
+            switchTurn();
+          }
+        }
+      });
+    });
+    if (checkForWinner()) {
+      setTimeout(() =>{
+        clearBoard();
+        alert(`${game.turn.value} Wins!`);
+      }, 450);
+      switchTurn();
+      game.turn.wins.push('win');
+      game.turn.DOMwins.innerHTML = `${game.turn.value} : ${game.turn.wins.length}`;
+    } else if (board.every(isNotEmptyString)) {
+      clearBoard();
+      setTimeout(() => {
+        clearBoard();
+        alert('😸 Wins!');
+      }, 450);
+    }
+  });
+  const clearBoard = () => {
+    forEach(game.DOMcells, (index, cell) => {
+      board.splice(index, board.length, '');
+      cell.innerHTML = board[index];
+      cell.dataset['clicked'] = 'false';
+    });
+  }
+  players.map((player) => {
+    player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
+  });
+}
+render();
