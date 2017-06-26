@@ -8,13 +8,6 @@ const utils = module.exports = {
       callback.call(scope, i, array[i]);
     }
   },
-  match (a, b) {
-    if (a === b) {
-      return true;
-    } else {
-      return false
-    }
-  },
   sort (a, b) {
     return a - b;
   },
