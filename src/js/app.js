@@ -41,6 +41,15 @@ const checkForWinner = () => {
   });
 };
 
+const clearBoard = () => {
+  const { board } = game;
+  forEach(game.DOMcells, (index, cell) => {
+    board.splice(index, board.length, '');
+    cell.innerHTML = board[index];
+    cell.dataset['clicked'] = 'false';
+  });
+};
+
 const render = (e) => {
   game.newGame();
   const { board, DOMboard, DOMcells } = game;
@@ -63,7 +72,7 @@ const render = (e) => {
       setTimeout(() =>{
         clearBoard();
         alert(`${game.turn.value} Wins!`);
-      }, 500);
+      }, 450);
       switchTurn();
       game.turn.wins.push('win');
       game.turn.DOMwins.innerHTML = `${game.turn.value} : ${game.turn.wins.length}`;
@@ -72,16 +81,9 @@ const render = (e) => {
       setTimeout(() => {
         clearBoard();
         alert('😸 Wins!');
-      }, 500);
+      }, 450);
     }
   });
-  const clearBoard = () => {
-    forEach(game.DOMcells, (index, cell) => {
-      board.splice(index, board.length, '');
-      cell.innerHTML = board[index];
-      cell.dataset['clicked'] = 'false';
-    });
-  }
   players.map((player) => {
     player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
   });
