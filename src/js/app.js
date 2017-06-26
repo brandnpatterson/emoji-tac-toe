@@ -86,4 +86,5 @@ const render = (e) => {
     player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
   });
 }
+
 render();
