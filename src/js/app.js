@@ -7,7 +7,7 @@ import { forEach, isNotEmptyString, sort, winningCombos } from './utils';
 const game = {
   DOMboard: document.querySelector('.board'),
   DOMcells: document.querySelectorAll('.cell'),
-  board: ['!', '!'],
+  board: [],
   newGame () {
     game.turn = players[1];
 
@@ -24,12 +24,12 @@ const game = {
 const players = [
   {
     value: '🦄',
-    DOMwins: document.querySelector('.x-wins'),
+    DOMwins: document.querySelector('.player-one-wins'),
     wins: []
   },
   {
     value: '💩',
-    DOMwins: document.querySelector('.o-wins'),
+    DOMwins: document.querySelector('.player-two-wins'),
     wins: []
   }
 ];
