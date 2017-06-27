@@ -62,23 +62,29 @@ const switchTurn = () => {
   }
 };
 
-const render = (e) => {
-  game.newGame();
-
+const view = (e) => {
   const { board, DOMboard, DOMcells } = game;
 
-  const clearDOM = () => {
-    const { board } = game;
+  const initiateListener = () => {
+    DOMboard.addEventListener('click', render);
+  };
 
+  const detatchListener = () => {
+    DOMboard.removeEventListener('click', render);
+  };
+
+  const clearDOM = () => {
     forEach(game.DOMcells, (index, cell) => {
       cell.innerHTML = board[index];
       cell.dataset['clicked'] = 'false';
     });
   };
 
-  DOMboard.addEventListener('click', listenForEvent);
+  players.map((player) => {
+    player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
+  });
 
-  function listenForEvent (e) {
+  function render (e) {
     const data = e.target.dataset;
     forEach (game.DOMcells, (index, cell) => {
       if (e.target === cell && data['clicked'] === 'false') {
@@ -94,12 +100,14 @@ const render = (e) => {
     });
 
     if (checkForWinner()) {
+      detatchListener();
       setTimeout(() =>{
         alert(`${game.turn.value} Wins!`);
         addWin();
         game.turn.DOMwins.innerHTML = `${game.turn.value} : ${game.turn.wins.length}`;
         game.newGame();
         clearDOM();
+        initiateListener();
       }, 450);
     } else if (board.every(isNotEmptyString)) {
       setTimeout(() => {
@@ -109,10 +117,8 @@ const render = (e) => {
       }, 100);
     }
   }
-
-  players.map((player) => {
-    player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
-  });
+  game.newGame();
+  initiateListener();
 }
 
-render();
+view();
