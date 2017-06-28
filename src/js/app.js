@@ -9,7 +9,7 @@ const game = {
   DOMcells: document.querySelectorAll('.cell'),
   board: [],
   newGame () {
-    game.turn = players[1];
+    game.turn = players[0];
 
     for (var i = 0; i < this.DOMcells.length; i++) {
       if (this.board.length === 0) {
@@ -55,10 +55,10 @@ const checkForWinner = () => {
 };
 
 const switchTurn = () => {
-  if (game.turn === players[1]) {
-    game.turn = players[0];
-  } else {
+  if (game.turn === players[0]) {
     game.turn = players[1];
+  } else {
+    game.turn = players[0];
   }
 };
 
@@ -90,7 +90,6 @@ const view = (e) => {
       if (e.target === cell && data['clicked'] === 'false') {
         board.map((boardItem, boardIndex) => {
           if (boardIndex === index) {
-            switchTurn();
             addValueToBoard(boardIndex);
             e.target.innerHTML = board[index];
             data['clicked'] = 'true';
@@ -98,7 +97,6 @@ const view = (e) => {
         });
       }
     });
-
     if (checkForWinner()) {
       detachListener();
       setTimeout(() =>{
@@ -115,6 +113,8 @@ const view = (e) => {
         game.newGame();
         clearDOM();
       }, 100);
+    } else {
+      switchTurn();
     }
   }
   game.newGame();
