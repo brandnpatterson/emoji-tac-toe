@@ -65,11 +65,11 @@ const switchTurn = () => {
 const view = (e) => {
   const { board, DOMboard, DOMcells } = game;
 
-  const attatchListener = () => {
+  const attachListener = () => {
     DOMboard.addEventListener('click', render);
   };
 
-  const detatchListener = () => {
+  const detachListener = () => {
     DOMboard.removeEventListener('click', render);
   };
 
@@ -100,14 +100,14 @@ const view = (e) => {
     });
 
     if (checkForWinner()) {
-      detatchListener();
+      detachListener();
       setTimeout(() =>{
         alert(`${game.turn.value} Wins!`);
         addWin();
         game.turn.DOMwins.innerHTML = `${game.turn.value} : ${game.turn.wins.length}`;
         game.newGame();
         clearDOM();
-        attatchListener();
+        attachListener();
       }, 450);
     } else if (board.every(isNotEmptyString)) {
       setTimeout(() => {
@@ -118,7 +118,7 @@ const view = (e) => {
     }
   }
   game.newGame();
-  attatchListener();
+  attachListener();
 }
 
 view();
