@@ -25,9 +25,11 @@ const game = {
         this.board.splice(i, this.board.length, '');
       }
     }
+  },
+  reset () {
     players.map(player => {
       player.wins = [];
-    });
+    })
   }
 };
 
@@ -105,6 +107,7 @@ const view = (e) => {
   resetGame.addEventListener('click', () => {
     preGame.classList.remove('fade-out');
     game.newGame();
+    game.reset();
   });
 
   function render (e) {
@@ -115,7 +118,11 @@ const view = (e) => {
           if (boardIndex === index) {
             addValueToBoard(boardIndex);
             e.target.innerHTML = board[index];
-            data['clicked'] = 'true';
+            if (data.clicked === 'false') {
+              setTimeout(() => {
+                data.clicked = 'true';
+              }, 0)
+            }
           }
         });
       }
@@ -136,7 +143,9 @@ const view = (e) => {
         game.newGame();
         clearDOM();
       }, 100);
-    } else {
+    } else if (data.clicked === 'true') {
+      return
+    } else if (data.clicked === 'false') {
       switchTurn();
     }
   }
