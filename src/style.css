@@ -130,6 +130,7 @@ body {
   flex-direction: column;
 }
 select {
+  appearance: none;
   background: none;
   border: 1px solid white;
   height: contain;
