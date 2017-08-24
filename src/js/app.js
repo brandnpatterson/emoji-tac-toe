@@ -4,13 +4,19 @@
 
 import { forEach, isNotEmptyString, sort, winningCombos } from './utils';
 
+const preGame = {
+  container: document.querySelector('.pre-game'),
+  playerOne: document.querySelector('.select-player-one'),
+  playerTwo: document.querySelector('.select-player-two'),
+  startGame: document.querySelector('.start-game')
+}
+
 const game = {
   DOMboard: document.querySelector('.board'),
   DOMcells: document.querySelectorAll('.cell'),
   board: [],
   newGame () {
     game.turn = players[0];
-
     for (var i = 0; i < this.DOMcells.length; i++) {
       if (this.board.length === 0) {
         this.board.push('');
@@ -23,12 +29,12 @@ const game = {
 
 const players = [
   {
-    value: '🦄',
+    value: preGame.playerOne.value,
     DOMwins: document.querySelector('.player-one-wins'),
     wins: []
   },
   {
-    value: '💩',
+    value: preGame.playerTwo.value,
     DOMwins: document.querySelector('.player-two-wins'),
     wins: []
   }
@@ -63,6 +69,7 @@ const switchTurn = () => {
 };
 
 const view = (e) => {
+  const { container, playerOne, playerTwo, startGame } = preGame;
   const { board, DOMboard, DOMcells } = game;
 
   const attachListener = () => {
@@ -80,8 +87,15 @@ const view = (e) => {
     });
   };
 
-  players.map((player) => {
-    player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
+  startGame.addEventListener('click', () => {
+    players[0].value = playerOne.value;
+    players[1].value = playerTwo.value;
+
+    players.map((player) => {
+      player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
+    });
+
+    container.classList.add('fade-out');
   });
 
   function render (e) {
