@@ -6,7 +6,7 @@ import webpack    from 'webpack-stream';
 
 var reload = sync.reload;
 
-gulp.task('clean', del.bind(null, ['index.html', 'public/bundle.js'], {read: false}));
+gulp.task('clean', del.bind(null, ['index.html', 'public/js/bundle.js'], {read: false}));
 
 gulp.task('default', ['html', 'server', 'watch']);
 

@@ -178,9 +178,9 @@ select {
   justify-content: center;
   align-items: center;
 }
-.board-title h2 {
+.scoreboard-title h2 {
   font-size: 40px;
-  margin: 0;
+  margin: 100px 0 0 0;
 }
 .cell {
   border: 5px solid black;
