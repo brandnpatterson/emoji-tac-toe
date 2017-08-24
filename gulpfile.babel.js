@@ -29,7 +29,7 @@ gulp.task('server', ['scripts'], () => {
 gulp.task('scripts', function() {
   return gulp.src(['src/js/index.js'])
     .pipe(webpack( require('./webpack.config.js') ))
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('public/js'));
 });
 
 gulp.task('watch', () => {
