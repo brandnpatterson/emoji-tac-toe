@@ -4,8 +4,8 @@
 
 import { forEach, isNotEmptyString, sort, winningCombos } from './utils';
 
-const preGame = {
-  container: document.querySelector('.pre-game'),
+const setUpGame = {
+  preGame: document.querySelector('.pre-game'),
   playerOne: document.querySelector('.select-player-one'),
   playerTwo: document.querySelector('.select-player-two'),
   startGame: document.querySelector('.start-game')
@@ -14,6 +14,7 @@ const preGame = {
 const game = {
   DOMboard: document.querySelector('.board'),
   DOMcells: document.querySelectorAll('.cell'),
+  resetGame: document.querySelector('.reset-game'),
   board: [],
   newGame () {
     game.turn = players[0];
@@ -24,17 +25,20 @@ const game = {
         this.board.splice(i, this.board.length, '');
       }
     }
+    players.map(player => {
+      player.wins = [];
+    });
   }
 };
 
 const players = [
   {
-    value: preGame.playerOne.value,
+    value: setUpGame.playerOne.value,
     DOMwins: document.querySelector('.player-one-wins'),
     wins: []
   },
   {
-    value: preGame.playerTwo.value,
+    value: setUpGame.playerTwo.value,
     DOMwins: document.querySelector('.player-two-wins'),
     wins: []
   }
@@ -69,8 +73,8 @@ const switchTurn = () => {
 };
 
 const view = (e) => {
-  const { container, playerOne, playerTwo, startGame } = preGame;
-  const { board, DOMboard, DOMcells } = game;
+  const { preGame, playerOne, playerTwo, startGame } = setUpGame;
+  const { board, DOMboard, DOMcells, resetGame } = game;
 
   const attachListener = () => {
     DOMboard.addEventListener('click', render);
@@ -95,7 +99,12 @@ const view = (e) => {
       player.DOMwins.innerHTML = `${player.value} : ${player.wins.length}`;
     });
 
-    container.classList.add('fade-out');
+    preGame.classList.add('fade-out');
+  });
+
+  resetGame.addEventListener('click', () => {
+    preGame.classList.remove('fade-out');
+    game.newGame();
   });
 
   function render (e) {
