@@ -180,8 +180,14 @@ select {
 }
 .scoreboard-title h2 {
   font-size: 40px;
-  margin: 100px 0 0 0;
 }
+
+@media screen and (min-width: 600px) {
+  .scoreboard-title h2 {
+    margin: 100px 0 0 0;
+  }
+}
+
 .cell {
   border: 5px solid black;
   box-sizing: border-box;
